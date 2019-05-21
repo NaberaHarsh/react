@@ -32,6 +32,7 @@ export default Parent;
 */
 
 
+
 function App(props){
   return(
   <div>
@@ -40,7 +41,9 @@ function App(props){
   </div>)
 }
 
-/*function OtherComponents(props)
+
+/*
+function OtherComponents(props)
 {
   let Output
   if(props.msg)
@@ -57,24 +60,19 @@ function OtherComponents(props)
   return props.msg? <h2 className={props.cName}>{props.msg}</h2>:<h2 className={props.cName}>No Message to Show</h2>
 }
 
-
-
-
-
-function Practise(props){
-  if(props.item){
-var arr=[];
-for(let i=0; i<props.item.length; i++)
-{
-  arr.push(<li>{props.item[i]}</li>)
-}
-return <ul>{arr}</ul>
-  }
-else 
- return <h3>list is empty</h3>;
-}
-
-
+ function Practise(props){
+   if(props.item){
+ var arr=[];
+ for(let i=0; i<props.item.length; i++)
+ {
+   arr.push(<li>{props.item[i]}</li>)
+ }
+ return <ul>{arr}</ul>
+   }
+ else 
+  return <h3>list is empty</h3>;
+ }
+ 
 /*
 function Message(props)
 {
@@ -90,18 +88,94 @@ function Message(props)
  }
   
 }*/
+/*
+function Loop(props){
+let xx=[];
+for(let yy of props.val){
+  xx.push(<h1>{props.val}</h1>);
+}
+return <div>
+  {xx}
+</div>
+}
+*/
+/*function App(props){
+  let elem=[];
+  const JSX = props.msg1.map((elem)=>(<h1>{elem}</h1>))
+  return elem;
+  }
+*/
+  
+class One extends React.Component{
+    constructor(props){
+    super(props);
+  }
+render()
+{
+  return <div>
+    <h1>hello world {this.props.name}</h1> 
+  </div>
+}
+  }
+  
+  class Two extends React.Component {
+  
+    constructor(props){
+      super(props);
+      this.clickHandler.bind(this)   // bind to same this of class
+    }
+  
+    clickHandler(event){  // every Event Handler has first argument as Browser events
+      console.log(event) 
+    }
+  
+    render(){
+      return <div>
+       <h1>Hello World {this.props.name} </h1>
+       <button onClick={(e)=>{this.clickHandler(e)}}> Click </button>
+      </div>
+    }
+  }
+  class Change extends React.Component {
+  
+    constructor(props){
+      super(props);
+      this.clickHandler.bind(this)  
+      this.state = props   //copying props to this.state
+  
+    }
+  
+    clickHandler(event){  
+      console.log(event) 
+      this.setState({
+        name : event.target.value
+      })  // this changes name value of state and refreshed the DOM
+    }
+  
+    render(){
+      return <div>
+       <h1>Hello World {this.state.name} </h1>   
+       <input onChange={(e)=>{this.clickHandler(e)}}/>
+      </div>
+    }
+  }
+
+  
 
 function Parent(){
   return(
     <div>
-      <App msg1="first message" msg2="second message" />
+      <One name="harsh" />
+      <Change name="Youstart" />
+      <App msg1={["first message","second message"]} />
+      <Two name="harsh" />
       <OtherComponents cName="styled" msg="message"></OtherComponents>
-      {/* <Message val={["First Message","Second Message"]} /> */}
+      {/* <Loop val={["First Message","second meaasge"]} /> */}
       <Practise item={["honda","skoda","audi"]} />
 
     </div>
 
   )
 }
-
+      
 export default Parent;
