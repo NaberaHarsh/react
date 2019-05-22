@@ -1,7 +1,8 @@
 import React from 'react';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
-import { arrayExpression } from '@babel/types';
+//import { arrayExpression } from '@babel/types';
+import './paper.css'
 
 /*
 function First(){
@@ -33,14 +34,14 @@ export default Parent;
 
 
 
-function App(props){
+/*function App(props){
   return(
   <div>
     <h1>hello {props.msg1}</h1>
     <h1>hello {props.msg2}</h1>
   </div>)
 }
-
+*/
 
 /*
 function OtherComponents(props)
@@ -55,11 +56,14 @@ function OtherComponents(props)
 }
 */
 
+/*
 function OtherComponents(props)
 {
   return props.msg? <h2 className={props.cName}>{props.msg}</h2>:<h2 className={props.cName}>No Message to Show</h2>
 }
+*/
 
+ /*
  function Practise(props){
    if(props.item){
  var arr=[];
@@ -72,6 +76,7 @@ function OtherComponents(props)
  else 
   return <h3>list is empty</h3>;
  }
+ */
  
 /*
 function Message(props)
@@ -106,7 +111,8 @@ return <div>
   }
 */
   
-class One extends React.Component{
+
+/*class One extends React.Component{
     constructor(props){
     super(props);
   }
@@ -159,23 +165,68 @@ render()
       </div>
     }
   }
+  */
 
-  
-
-function Parent(){
-  return(
-    <div>
-      <One name="harsh" />
-      <Change name="Youstart" />
-      <App msg1={["first message","second message"]} />
-      <Two name="harsh" />
-      <OtherComponents cName="styled" msg="message"></OtherComponents>
-      {/* <Loop val={["First Message","second meaasge"]} /> */}
-      <Practise item={["honda","skoda","audi"]} />
-
-    </div>
-
-  )
+  class Todo extends React.Component{
+    constructor(props){
+      super(props);
+      this.state={};
+      this.state.item=this.props.item;
+      this.state.newItem="";
+    }
+    getList(props){
+let items=[];
+for( let i of this.props.item){
+  items.push(<li className="paper-btn btn-block">{i}</li>)
 }
+return items;
+    }
+
+getValue(e){ 
+  this.newItem= e.target.value
+}
+  setValue(e){
+    if(this.newItem)
+    console.log(e.target.value)
+
+    let l=this.state.item;
+    l.push(this.newItem)
+    this.setState(
+      {item : l}
+    )
+    
+    document.getElementById("aa").value='';
+  }
+
+  render(){
+    return <div>
+      <h2 className="row flex-center">ToDo List</h2>
+      <button  id="bb" onClick={this.setValue.bind(this)}  className="row flex-center">CLICK</button>
+      <input className="row flex-center" id="aa"  onChange={(ele)=>{this.getValue(ele)}}  ></input>
+      <p className="row flex-center">length: {this.props.item.length}</p>
+      <ul>{this.getList()}</ul>
       
-export default Parent;
+    </div>
+  }
+}
+
+export default Todo;
+// function Parent(){
+//   return(
+//     <div>
+      
+//       <Todo item={["honda"]} />
+//       {/* <One name="harsh" /> */}
+//       {/* <Change name="Youstart" /> */}
+//       {/* <App msg1={["first message","second message"]} /> */}
+//       {/* <Two name="harsh" /> */}
+//       {/* <OtherComponents cName="styled" msg="message"></OtherComponents> */}
+//       {/* <Loop val={["First Message","second meaasge"]} /> */}
+//       {/* <Practise item={["honda","skoda","audi"]} /> */}
+
+//     </div>
+
+//   )
+// }
+
+
