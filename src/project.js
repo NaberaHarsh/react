@@ -9,14 +9,18 @@ class Project extends React.Component{
     constructor(props){
       super(props);
       this.state={}; 
-      this.state.item=this.props.item;
-      this.state.newItem={};
+      this.state.item=[]
+      this.state.newItemName="";
+      this.setStatus=this.setStatus.bind(this);
+      this.getValue=this.getValue.bind(this);
+      this.setValue=this.setValue.bind(this);
+      
       
     }
 
-  setStatus(y){
+  setStatus(ele){
 let p=this.state.item;
-let i=p.indexOf(y);
+let i=p.indexOf(ele);
 p[i].status = !p[i].status;
 this.setState({
     item:p
@@ -24,28 +28,23 @@ this.setState({
     }
 getList(props){
 let items=[];
-items=this.state.item.map((ele)=><li className="paper-btn btn-block"  onClick={(y)=>{this.setStatus(y)}; {this.newItem.status=false}}>{ele}</li>)
+items=this.state.item.map((ele)=><ListItem ele={ele} setStatus={this.setStatus}></ListItem>)
 return items;
     }
 
 getValue(e){ 
-   this.newItem= e.target.value
+   this.newItemName= e.target.value
 }
 
 setValue(e){
-    if(this.newItem){
+    if(this.newItemName){
     console.log(e.target.value)
+    let obj= {name:this.newItemName,status:false}
     let l=this.state.item;
-    l.push(this.newItem)
+    l.push(obj)
     this.setState(
-      {item : l, newItem: ''}
-          )
-          if(this.setStatus){
-              <li className=" btn-success"></li>
-          }
-      
-        }
-    
+    {item:l}
+          )}
     document.getElementById("aa").value='';
   }
 
@@ -54,11 +53,20 @@ setValue(e){
       <h2 className="row flex-center">ToDo List</h2>
       <button  id="bb" onClick={this.setValue.bind(this)}  className="row flex-center">CLICK</button>
       <input className="row flex-center" id="aa"  onChange={(ele)=>{this.getValue(ele)}}  ></input>
-      <p className="row flex-center">length: {this.props.item.length}</p>
+      <p className="row flex-center">length: {this.state.item.length}</p>
       <ul>{this.getList()}</ul>
       
     </div>
   }
+}
+
+class ListItem extends React.Component{
+  constructor(props){
+    super(props);
+  }
+render(){
+  return <li onClick={()=>{this.props.setStatus(this.props.ele)}} className={this.props.ele.status ? " paper-btn btn-block btn-success": "paper-btn btn-block"} >{this.props.ele.name}</li>
+}
 }
 
 export default Project;
