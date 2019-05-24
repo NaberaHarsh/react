@@ -2,10 +2,10 @@
     margin-left: 100px;
 width: 900px;
 display:flex;
-flex-direction: row
+flex-direction: row;
+margin-top: 2px;
 
 }
 #dd{
-    display: inline;
-    flex-direction: row
+    width:400px;
 }

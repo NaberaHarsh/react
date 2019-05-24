@@ -11,7 +11,7 @@ class Project extends React.Component{
       super(props);
       this.state={}; 
       this.state.item=[]
-      this.state.newItemName="";
+      this.state.newItemName={};
       this.state.number=0;
       this.setStatus=this.setStatus.bind(this);
       this.getValue=this.getValue.bind(this);
@@ -44,7 +44,7 @@ this.setState({
 
 getList(props){
 let items=[];
-items=this.state.item.map((ele,i)=> <ListItem key={i} ele={ele} setStatus={this.setStatus} up={()=>this.up(i)} down={()=>this.down(i)} delete={()=>this.delete(i)}></ListItem> )
+items=this.state.item.map((ele,i)=> <ListItem key={i} ele={ele} setStatus={this.setStatus} up={()=>this.up(i)} down={()=>this.down(i)} delete={()=>this.delete(i)} GoToTop={()=>{this.GoToTop(i)}} ></ListItem> )
 
 return items;
 
@@ -57,12 +57,14 @@ getValue(e){
 setValue(e){
     if(this.newItemName){
     console.log(e.target.value)
-    let obj= {name:this.newItemName,status:false}
+  let d=new Date();
+    let obj= {name:this.newItemName,status:false,date:d.toLocaleDateString()}
     let l=this.state.item;
     l.push(obj)
     this.setState(
     {item:l}
           )
+          this.newItemName="";
         }     
     document.getElementById("aa").value='';
   }
@@ -73,6 +75,8 @@ setValue(e){
     {
       [x[i],x[i-1]]=[x[i-1],x[i]]
     }
+    else
+    alert("This item is already at Top");
 this.setState({
   item:x
 })
@@ -84,29 +88,55 @@ this.setState({
     {
       [x[i],x[i+1]]=[x[i+1],x[i]]
     }
+    
+    else
+    alert("This item is already at Bottom");
 this.setState({
   item:x
 })
   }
 
   delete(i){
+    alert("Are you sure you want to Delete");
+    let count=this.state.number;
+    if(this.state.item[i].status)
+    count--;
+    this.setState(
+      {number:count}
+    )
     let x=this.state.item;
-    x.splice(i,1);
+      x.splice(i,1);
     this.setState({
       item:x
     })
+
+  }
+
+  GoToTop(i){
+    let y=this.state.item;
+    [y[i],y[0]]=[y[0],y[i]]
+    console.log(i);
+    for(let j=i; j>1;j--){
+    [y[i-1],y[j]]=[y[j],y[i-1]]
+  i--;  
+  }
+    this.setState({
+      item:y
+    })
+
   }
 
 
   render(){
     return <div>
       <h2 className="row flex-center">ToDo List</h2>
-  <button  id="bb" onClick={this.setValue.bind(this)} className="row flex-center">CLICK</button>
-  <input className="row flex-center" id="aa"  onChange={(ele)=>{this.getValue(ele)}}  ></input>
-      <p className="row flex-center">Completed Items:{this.state.number} /{this.state.item.length}</p>
-      <ul>{this.getList()}</ul>
-        
-        
+      <div style={{display:'flex'}}>
+  <input id="aa"  onChange={(ele)=>{this.getValue(ele)}}  ></input>
+  
+  <button onClick={this.setValue.bind(this)} className="btn-outline-info" id="dd">ADD ITEM</button>
+  </div>
+      <p className="row flex-center" style={{marginTop:20}}>Completed Items:{this.state.number} /{this.state.item.length}</p>
+      <ul>{this.getList()}</ul>     
      </div>
   }
 }
@@ -117,7 +147,7 @@ class ListItem extends React.Component{
   }
 render(){
   return <div style={{display: 'flex'}}>
-  <li onClick={()=>{this.props.setStatus(this.props.ele)}} id="cc" className={this.props.ele.status ? " paper-btn btn-block btn-success": "paper-btn btn-block"} >{this.props.ele.name}</li>
+  <li onClick={()=>{this.props.setStatus(this.props.ele)}} onDoubleClick={(i)=>{this.props.GoToTop()}} id="cc" className={this.props.ele.status ? " paper-btn btn-block btn-success": "paper-btn btn-block"} >{this.props.ele.name}{this.props.ele.date}</li>
   <button onClick={(i)=>this.props.up()} className="btn-warning" >Up</button>
   <button onClick={(i)=>this.props.down()}  className="btn-info">Down</button>
   <button onClick={(i)=>this.props.delete()}  className="btn-danger">X</button>
