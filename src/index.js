@@ -7,7 +7,7 @@ import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.css'
 
 
-ReactDOM.render(<Project item={[]}/>, document.getElementById('root'));
+ReactDOM.render(<Project item={[]} />, document.getElementById('root'));
 
 // ReactDOM.render(<Todo item={[]}/>, document.getElementById('root'));
 
