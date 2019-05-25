@@ -16,6 +16,12 @@ class Project extends React.Component{
       this.setStatus=this.setStatus.bind(this);
       this.getValue=this.getValue.bind(this);
       this.setValue=this.setValue.bind(this);
+      this.completed=this.completed.bind(this);
+      // this.Sort=this.Sort.bind(this);
+      // this.state = {
+      //   sortDirection: 'descending',
+      //   data: this.state.data.sort(descending)
+    // };
            
       
     }
@@ -58,7 +64,7 @@ setValue(e){
     if(this.newItemName){
     console.log(e.target.value)
   let d=new Date();
-    let obj= {name:this.newItemName,status:false,date:d.toLocaleDateString()}
+    let obj= {name:this.newItemName,status:false,date:d.toLocaleString()}
     let l=this.state.item;
     l.push(obj)
     this.setState(
@@ -123,8 +129,43 @@ this.setState({
     this.setState({
       item:y
     })
+}
+// sortAscending = () => {
+//   const { item } = this.state;
+//   item.sort((a, b) => a - b)    
+//   this.setState({ item })
+// }
 
-  }
+// sortDescending = () => {
+//   const { item } = this.state;
+//   item.sort((a, b) => a - b).reverse()
+//   this.setState({ item })
+// }
+
+//   sortData() {
+//     if(this.state.sortDirection ==='descending') {
+//         this.setState({ 
+//             sortDirection: 'ascending',
+//             data: this.props.item.sort(sortAscending)
+//         });
+//     } else {
+//         this.setState({ 
+//             sortDirection: 'descending',
+//             data: this.props.item.sort(sortDescending)
+//         });
+//     }
+// }
+
+completed(){
+//  let count=0;
+//   for(let i of this.props.item)
+//   {
+//     if(i.status)
+//   {count++;}
+// }
+  console.log("0");
+
+}
 
 
   render(){
@@ -136,7 +177,11 @@ this.setState({
   <button onClick={this.setValue.bind(this)} className="btn-outline-info" id="dd">ADD ITEM</button>
   </div>
       <p className="row flex-center" style={{marginTop:20}}>Completed Items:{this.state.number} /{this.state.item.length}</p>
-      <ul>{this.getList()}</ul>     
+      <ul>{this.getList()}</ul>  
+      <select onClick={<h1>hello</h1>}>
+        <option >by complete</option>
+        </select>   
+
      </div>
   }
 }
@@ -147,7 +192,7 @@ class ListItem extends React.Component{
   }
 render(){
   return <div style={{display: 'flex'}}>
-  <li onClick={()=>{this.props.setStatus(this.props.ele)}} onDoubleClick={(i)=>{this.props.GoToTop()}} id="cc" className={this.props.ele.status ? " paper-btn btn-block btn-success": "paper-btn btn-block"} >{this.props.ele.name}{this.props.ele.date}</li>
+  <li onClick={()=>{this.props.setStatus(this.props.ele)}} onDoubleClick={(i)=>{this.props.GoToTop()}} id="cc" className={this.props.ele.status ? " paper-btn btn-block btn-success": "paper-btn btn-block"} >{this.props.ele.name}<div style={{marginLeft :650, position: 'absolute'}}>{this.props.ele.date}</div></li>
   <button onClick={(i)=>this.props.up()} className="btn-warning" >Up</button>
   <button onClick={(i)=>this.props.down()}  className="btn-info">Down</button>
   <button onClick={(i)=>this.props.delete()}  className="btn-danger">X</button>
