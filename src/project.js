@@ -51,23 +51,23 @@ this.setState({
       this.setState(
         {number:count}
       )
-      }
+      } 
   this.state.num=count;
   this.setState({
     num:count
   })
       }
 
-      Progress(){      
-        
-     let numb=this.state.num/this.state.item.length;
+      Progress(){    
+
+      let numb=this.state.num/this.state.item.length;
      console.log(numb);
      this.setState(
      {per:numb*100}
      )
-       
-      }
-
+        
+  }
+      
 getList(props){
 let items=[];
 items=this.state.item.map((ele,i)=> <ListItem key={i} ele={ele} setStatus={this.setStatus} up={()=>this.up(i)} down={()=>this.down(i)} delete={()=>this.delete(i)} GoToTop={()=>{this.GoToTop(i)}} Progress={()=>{this.Progress()} }  ></ListItem> )
@@ -203,14 +203,12 @@ render(){
   <button onClick={this.setValue.bind(this)} className="btn-outline-info" id="dd">ADD ITEM</button>
   </div>
       <p className="row flex-center" style={{marginTop:20}}>Completed Items:{this.state.number} /{this.state.item.length}</p>
-      <ul>{this.getList()}</ul>  
-      <select >
-        <option onClick={this.completed}>by complete</option>
-        </select>  
-        <div className="progress" >
+      <div className="progress" id="bar">
   <div className="progress-bar  progress-bar-striped bg-warning progress-bar-animated" role="progressbar" style={{width:`${this.state.per}%`}}></div>
           </div> 
-
+      <br></br>
+      <ul>{this.getList()}</ul>  
+          
      </div>
   }
 }
