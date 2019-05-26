@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-// import Todo from './App';
-import Project from './project';  
+import Counter from './App';
+// import Project from './project';  
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.css'
 
 
-ReactDOM.render(<Project item={[]} />, document.getElementById('root'));
+ReactDOM.render(<Counter />, document.getElementById('root'));
 
 // ReactDOM.render(<Todo item={[]}/>, document.getElementById('root'));
 

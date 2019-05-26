@@ -167,50 +167,88 @@ render()
   }
   */
 
-  class Todo extends React.Component{
-    constructor(props){
-      super(props);
-      this.state={};
-      this.state.item=this.props.item;
-      this.state.newItem="";
-    }
-    getList(props){
-let items=[];
-for( let i of this.props.item){
-  items.push(<li className="paper-btn btn-block">{i}</li>)
-}
-return items;
-    }
+//   class Todo extends React.Component{
+//     constructor(props){
+//       super(props);
+//       this.state={};
+//       this.state.item=this.props.item;
+//       this.state.newItem="";
+//     }
+//     getList(props){
+// let items=[];
+// for( let i of this.props.item){
+//   items.push(<li className="paper-btn btn-block">{i}</li>)
+// }
+// return items;
+//     }
 
-getValue(e){ 
-  this.newItem= e.target.value
-}
-  setValue(e){
-    if(this.newItem)
-    console.log(e.target.value)
+// getValue(e){ 
+//   this.newItem= e.target.value
+// }
+//   setValue(e){
+//     if(this.newItem)
+//     console.log(e.target.value)
 
-    let l=this.state.item;
-    l.push(this.newItem)
-    this.setState(
-      {item : l}
-    )
+//     let l=this.state.item;
+//     l.push(this.newItem)
+//     this.setState(
+//       {item : l}
+//     )
     
-    document.getElementById("aa").value='';
+//     document.getElementById("aa").value='';
+//   }
+
+//   render(){
+//     return <div>
+//       <h2 className="row flex-center">ToDo List</h2>
+//       <button  id="bb" onClick={this.setValue.bind(this)}  className="row flex-center">CLICK</button>
+//       <input className="row flex-center" id="aa"  onChange={(ele)=>{this.getValue(ele)}}  ></input>
+//       <p className="row flex-center">length: {this.props.item.length}</p>
+//       <ul>{this.getList()}</ul>
+      
+//     </div>
+//   }
+// }
+
+class Counter extends React.Component{
+  constructor(props){
+    super(props);
+    this.state={};
+    this.state.num=0;
   }
+
+  Change(type){
+    let count=0;
+    count=this.state.num;
+    if(type==='I')
+    count++;
+    if(type==='D')
+    count--;
+    this.setState({
+      num:count
+    })
+  }
+  Timer(){
+    let n=this.state.num;
+    setInterval(()=>{ n++;
+      this.setState({
+      num:n
+      })}  ,1000)
+  }
+  
 
   render(){
     return <div>
-      <h2 className="row flex-center">ToDo List</h2>
-      <button  id="bb" onClick={this.setValue.bind(this)}  className="row flex-center">CLICK</button>
-      <input className="row flex-center" id="aa"  onChange={(ele)=>{this.getValue(ele)}}  ></input>
-      <p className="row flex-center">length: {this.props.item.length}</p>
-      <ul>{this.getList()}</ul>
-      
+      <br></br>
+      <h1>{this.state.num}</h1>
+      <button onClick={()=>{this.Change('I')}}> Increase</button>
+      <button onClick={()=>{this.Change('D')}}>Decrease</button>
+      <button onClick={()=>{this.Timer()}}>Timer</button>
     </div>
   }
 }
 
-export default Todo;
+export default Counter;
 // function Parent(){
 //   return(
 //     <div>
