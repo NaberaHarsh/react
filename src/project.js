@@ -14,6 +14,7 @@ class Project extends React.Component{
       this.state.newItemName={};
       this.state.number=0;
       this.state.per=0;
+      this.state.num=0;
       this.setStatus=this.setStatus.bind(this);
       this.getValue=this.getValue.bind(this);
       this.setValue=this.setValue.bind(this);
@@ -51,14 +52,18 @@ this.setState({
         {number:count}
       )
       }
+  this.state.num=count;
+  this.setState({
+    num:count
+  })
       }
-      Progress(){
+
+      Progress(){      
         
-        
-     let num=this.state.count/this.state.item.length;
-     console.log(num);
+     let numb=this.state.num/this.state.item.length;
+     console.log(numb);
      this.setState(
-     {per:num*100}
+     {per:numb*100}
      )
        
       }
@@ -88,6 +93,7 @@ setValue(e){
           this.newItemName="";
         }     
     document.getElementById("aa").value='';
+    this.Progress()
   }
  
    up=(i)=>{
@@ -130,6 +136,11 @@ this.setState({
     this.setState({
       item:x
     })
+    let numb=count/this.state.item.length;
+     console.log(numb);
+     this.setState(
+     {per:numb*100}
+     )
 
   }
 
