@@ -13,10 +13,14 @@ class Project extends React.Component{
       this.state.item=[]
       this.state.newItemName={};
       this.state.number=0;
+      this.state.per=0;
       this.setStatus=this.setStatus.bind(this);
       this.getValue=this.getValue.bind(this);
       this.setValue=this.setValue.bind(this);
+      this.Progress=this.Progress.bind(this);
       this.completed=this.completed.bind(this);
+      
+          
       // this.Sort=this.Sort.bind(this);
       // this.state = {
       //   sortDirection: 'descending',
@@ -46,11 +50,22 @@ this.setState({
       this.setState(
         {number:count}
       )
-        }}
+      }
+      }
+      Progress(){
+        
+        
+     let num=this.state.count/this.state.item.length;
+     console.log(num);
+     this.setState(
+     {per:num*100}
+     )
+       
+      }
 
 getList(props){
 let items=[];
-items=this.state.item.map((ele,i)=> <ListItem key={i} ele={ele} setStatus={this.setStatus} up={()=>this.up(i)} down={()=>this.down(i)} delete={()=>this.delete(i)} GoToTop={()=>{this.GoToTop(i)}} ></ListItem> )
+items=this.state.item.map((ele,i)=> <ListItem key={i} ele={ele} setStatus={this.setStatus} up={()=>this.up(i)} down={()=>this.down(i)} delete={()=>this.delete(i)} GoToTop={()=>{this.GoToTop(i)}} Progress={()=>{this.Progress()} }  ></ListItem> )
 
 return items;
 
@@ -130,6 +145,7 @@ this.setState({
       item:y
     })
 }
+
 // sortAscending = () => {
 //   const { item } = this.state;
 //   item.sort((a, b) => a - b)    
@@ -167,8 +183,7 @@ completed(){
 
 }
 
-
-  render(){
+render(){
     return <div>
       <h2 className="row flex-center">ToDo List</h2>
       <div style={{display:'flex'}}>
@@ -178,9 +193,12 @@ completed(){
   </div>
       <p className="row flex-center" style={{marginTop:20}}>Completed Items:{this.state.number} /{this.state.item.length}</p>
       <ul>{this.getList()}</ul>  
-      <select onClick={<h1>hello</h1>}>
-        <option >by complete</option>
-        </select>   
+      <select >
+        <option onClick={this.completed}>by complete</option>
+        </select>  
+        <div className="progress" >
+  <div className="progress-bar  progress-bar-striped bg-warning progress-bar-animated" role="progressbar" style={{width:`${this.state.per}%`}}></div>
+          </div> 
 
      </div>
   }
@@ -190,9 +208,10 @@ class ListItem extends React.Component{
   constructor(props){
     super(props);
   }
+  
 render(){
   return <div style={{display: 'flex'}}>
-  <li onClick={()=>{this.props.setStatus(this.props.ele)}} onDoubleClick={(i)=>{this.props.GoToTop()}} id="cc" className={this.props.ele.status ? " paper-btn btn-block btn-success": "paper-btn btn-block"} >{this.props.ele.name}<div style={{marginLeft :650, position: 'absolute'}}>{this.props.ele.date}</div></li>
+  <li onClick={()=>{this.props.setStatus(this.props.ele) ; this.props.Progress()}} onDoubleClick={(i)=>{this.props.GoToTop()}} id="cc" className={this.props.ele.status ? " paper-btn btn-block btn-success": "paper-btn btn-block"} >{this.props.ele.name}<div style={{marginLeft :650, position: 'absolute'}}>{this.props.ele.date}</div></li>
   <button onClick={(i)=>this.props.up()} className="btn-warning" >Up</button>
   <button onClick={(i)=>this.props.down()}  className="btn-info">Down</button>
   <button onClick={(i)=>this.props.delete()}  className="btn-danger">X</button>
