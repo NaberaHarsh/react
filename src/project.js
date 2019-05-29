@@ -4,6 +4,9 @@ import './App.css';
 import './project.css';
 //import { arrayExpression } from '@babel/types';
 import './paper.css'
+import {render} from 'react-dom';
+import SwipeToDelete from 'react-swipe-to-delete-component';
+
 
 
 class Project extends React.Component{
@@ -81,19 +84,27 @@ getValue(e){
 }
 
 setValue(e){
+
     if(this.newItemName){
     console.log(e.target.value)
+    let j;
+    if(j)
+    {j++}
+    else
+    {j=1}
   let d=new Date();
-    let obj= {name:this.newItemName,status:false,date:d.toLocaleString()}
+    let obj= {id:j,name:this.newItemName,status:false,date:d.toLocaleString()}
     let l=this.state.item;
     l.push(obj)
     this.setState(
     {item:l}
           )
           this.newItemName="";
+          this.Progress();
         }     
     document.getElementById("aa").value='';
-    this.Progress()
+
+   
   }
  
    up=(i)=>{
