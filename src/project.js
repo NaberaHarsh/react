@@ -4,6 +4,7 @@ import './App.css';
 import './project.css';
 //import { arrayExpression } from '@babel/types';
 import './paper.css'
+import axios from 'axios';
 import {render} from 'react-dom';
 import SwipeToDelete from 'react-swipe-to-delete-component';
 
@@ -38,6 +39,12 @@ class Project extends React.Component{
 let p=this.state.item;
 let i=p.indexOf(ele);
 p[i].status = !p[i].status;
+
+axios.put('http://localhost:8080/update/'+p[i]._id, p[i])
+.then((res)=>{
+  console.log(res.data);
+})
+
 this.setState({
     item:p
     })
@@ -87,13 +94,14 @@ setValue(e){
 
     if(this.newItemName){
     console.log(e.target.value)
-    let j;
-    if(j)
-    {j++}
-    else
-    {j=1}
   let d=new Date();
-    let obj= {id:j,name:this.newItemName,status:false,date:d.toLocaleString()}
+    let obj= {name:this.newItemName,status:false,date:d.toLocaleString()}
+  
+    axios.post('http://localhost:8080/task',obj)
+    .then((res)=>{
+      console.log(res.data);
+          })
+ 
     let l=this.state.item;
     l.push(obj)
     this.setState(
@@ -103,8 +111,6 @@ setValue(e){
           this.Progress();
         }     
     document.getElementById("aa").value='';
-
-   
   }
  
    up=(i)=>{
@@ -143,6 +149,12 @@ this.setState({
       {number:count}
     )
     let x=this.state.item;
+
+    axios.delete('http://localhost:8080/delete/'+x[i]._id)
+    .then((res)=>{
+      console.log(res.data);
+    })
+
       x.splice(i,1);
     this.setState({
       item:x
@@ -205,6 +217,17 @@ completed(){
 
 }
 
+componentDidMount(){
+  axios.get('http://localhost:8080/read')
+  .then((res)=>{
+      console.log(res.data);
+      this.setState({
+        item:res.data
+      })
+  })
+
+}
+
 render(){
     return <div>
       <h2 className="row flex-center">ToDo List</h2>
@@ -230,7 +253,7 @@ class ListItem extends React.Component{
   }
   
 render(){
-  return <div style={{display: 'flex'}}>
+  return <div style={{display: 'flex'}} className="col-sm-12">
   <li onClick={()=>{this.props.setStatus(this.props.ele) ; this.props.Progress()}} onDoubleClick={(i)=>{this.props.GoToTop()}} id="cc" className={this.props.ele.status ? " paper-btn btn-block btn-success": "paper-btn btn-block"} >{this.props.ele.name}<div style={{marginLeft :650, position: 'absolute'}}>{this.props.ele.date}</div></li>
   <button onClick={(i)=>this.props.up()} className="btn-warning" >Up</button>
   <button onClick={(i)=>this.props.down()}  className="btn-info">Down</button>
