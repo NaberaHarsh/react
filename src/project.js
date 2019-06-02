@@ -44,8 +44,7 @@ axios.put('http://localhost:8080/update/'+p[i]._id, p[i])
 .then((res)=>{
   console.log(res.data);
 })
-
-this.setState({
+  this.setState({
     item:p
     })
 
@@ -61,16 +60,22 @@ this.setState({
       this.setState(
         {number:count}
       )
-      } 
+      }
+      let numb=count/this.state.item.length;
+      console.log(numb);
+      this.setState(
+      {per:numb*100}
+      ) 
   this.state.num=count;
   this.setState({
     num:count
   })
+
       }
+      
 
-      Progress(){    
-
-      let numb=this.state.num/this.state.item.length;
+  Progress(){    
+    let numb=this.state.num/this.state.item.length;
      console.log(numb);
      this.setState(
      {per:numb*100}
@@ -224,7 +229,18 @@ componentDidMount(){
       this.setState({
         item:res.data
       })
+      let count=this.state.number;
+      for(let i=1;i<this.state.item.length;i++){
+      if(this.state.item[i].status)
+      console.log("working");
+      // {count++;
+      //   this.setState({
+      //     number:count
+      //   })
+      // }
+      }
   })
+ 
 
 }
 
