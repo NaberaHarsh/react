@@ -5,9 +5,6 @@ import './project.css';
 //import { arrayExpression } from '@babel/types';
 import './paper.css'
 import axios from 'axios';
-import { render } from 'react-dom';
-import SwipeToDelete from 'react-swipe-to-delete-component';
-
 
 
 class Project extends React.Component {
@@ -114,7 +111,12 @@ class Project extends React.Component {
         { item: l }
       )
       this.newItemName = "";
-      this.Progress();
+      // this.Progress();
+      let numb = this.state.number / this.state.item.length;
+      console.log(numb);
+      this.setState(
+        { per: numb * 100 }
+      )
     }
     document.getElementById("aa").value = '';
   }
