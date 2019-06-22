@@ -1,5 +1,6 @@
 import React from 'react';
 import News from './news';
+import Mail from './email'
 // import Medical from './Medical';
 // import Books from './Books';
 
@@ -16,7 +17,8 @@ class External extends React.Component{
   render(){
     return (
       <div>
-        <News/>
+          <Mail />
+        {/* <News/> */}
         {/* <Books/> */}
         {/* <Medical>
           
