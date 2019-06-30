@@ -2,15 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 // import Counter from './App';
-import Project from './project';
+// import Project from './project';
+import Blog from './blog';
+
 // import AppRouter from './router';  
 // import Data from './dataquery'
 // import External from './external'
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.css'
+import {BrowserRouter as Router,Route,Link} from 'react-router-dom';
 
 
-ReactDOM.render(<Project item={[]} />, document.getElementById('root'));
+ReactDOM.render(<Router><Route path="/" component={Blog} /></Router>, document.getElementById('root'));
+
+// ReactDOM.render(<Project item={[]} />, document.getElementById('root'));
 
 // ReactDOM.render(<AppRouter />, document.getElementById('root'));
 // ReactDOM.render(<Data />, document.getElementById('root'));
